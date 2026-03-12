@@ -2,6 +2,6 @@
 
 ## Run example
 ```
-$ ./SAVE.sh
+./SAVE.sh
 ```
 
