@@ -6,23 +6,24 @@
 
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{marginnote}
 
 %
-% Caso seja necessário desativar o pacote m_style
+% Caso seja necessário desativar o pacote mstyle
 % descomentar as linhas abaixo e remover o pacote.
 %
 %
-% m_style repository:
-% https://github.com/guilhermeivo/m_style/
+% mstyle repository:
+% https://github.com/guilhermeivo/mstyle/
 
 \def\usemstyle{}
 
 \ifdefined\usemstyle\relax
-    \message{Usando configuração do m_style}%
+    \message{Usando configuração do mstyle}%
 
-    \usepackage[section, maketitle]{m_style}
+    \usepackage[section, maketitle]{mstyle}
 
-    \title{Arquivo de Exemplo para o Estilo m\_style.sty}
+    \title{Arquivo de Exemplo para o Estilo mstyle.sty}
 \else
     \message{Usando configuração padrão}%
 
@@ -94,7 +95,7 @@ Donec commodo urna ex, non dapibus nunc iaculis a. Duis at neque et tellus dapib
     \label{fig:example-image}
 \end{figure}
 
-Fusce sit amet eros sit amet nisl ornare consectetur. In purus enim, posuere nec imperdiet et, sagittis at tortor. Morbi eu augue congue massa interdum pretium quis eu velit. Pellentesque odio ante, pretium nec dictum vitae, gravida sit amet dolor. Proin dignissim commodo laoreet. Fusce pellentesque dolor ac leo mollis, in laoreet felis pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque accumsan sollicitudin. Pellentesque tempor non sapien ultrices condimentum. Nulla lacinia nisi nec tincidunt euismod. Mauris elementum arcu in nisl pharetra laoreet. Nam eu ipsum euismod, aliquet elit sed, sollicitudin neque. Nulla ullamcorper diam nulla, ut molestie massa blandit ac. Etiam non aliquam magna.
+Fusce sit amet eros sit amet nisl ornare consectetur. In purus enim, posuere nec imperdiet et, sagittis at tortor. Morbi eu augue congue massa interdum pretium quis eu velit. Pellentesque odio ante, pretium nec dictum vitae, gravida sit amet dolor. Proin dignissim commodo laoreet. Fusce pellentesque dolor ac leo mollis, in laoreet felis pharetra. \marginnote{Aliquam molestie pellentesque viverra. Cras euismod faucibus lectus sit amet ultrices.}[-1cm] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque accumsan sollicitudin. Pellentesque tempor non sapien ultrices condimentum. Nulla lacinia nisi nec tincidunt euismod. Mauris elementum arcu in nisl pharetra laoreet. Nam eu ipsum euismod, aliquet elit sed, sollicitudin neque. Nulla ullamcorper diam nulla, ut molestie massa blandit ac. Etiam non aliquam magna.
 
 Aliquam molestie pellentesque viverra. Cras euismod faucibus lectus sit amet ultrices. Curabitur nec tristique est. Aliquam rhoncus dolor laoreet enim consequat, et ullamcorper enim viverra. Vivamus sit amet varius velit. Pellentesque condimentum luctus tellus, vitae interdum ligula accumsan at. Curabitur vulputate justo nec dolor consequat, vestibulum interdum nisl mattis. Morbi gravida luctus leo, a lacinia orci accumsan non.
 

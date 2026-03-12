@@ -1,0 +1,104 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mstyle-core}[2026/03/12 v0.1 (guilhermeivo)]
+\typeout{Core Style: Layout definitions for package mstyle-core}
+
+\author{guilhermeivo}
+
+% configuration math names
+\@ifpackageloaded{amsmath}{
+    \DeclareMathOperator{\arctg}{arctg}
+    \renewcommand{\arctan}{\arctg}
+
+    \DeclareMathOperator{\sen}{sen}
+    \renewcommand{\sin}{\sen}
+}{\relax}
+
+%% UPPERLETTER ENVIRONMENT BEGIN
+\newlength{\fontsizeupperletter}
+
+%\setlength{\fontsizeupperletter}{5.27em}
+% the default font has a size limit
+\setlength{\fontsizeupperletter}{3.2em}
+
+\newlength{\heighttext}
+\newlength{\widthtext}
+\newlength{\depthtext}
+\newlength{\totaltext}
+\newlength{\numberoflines}
+
+\newcommand\inlist[2]{%
+    \begingroup%
+    \edef\x{\endgroup\noexpand\in@{,#1,}{,#2,}}\x%
+    \ifin@%
+        \expandafter\@firstoftwo%
+    \else%
+        \expandafter\@secondoftwo%
+    \fi}
+
+\def\@tempupperletter#1{%
+    \let\nextchar#1%
+    \ifx#1*
+        \let\nextchar\relax
+    \else
+        \inlist{\noexpand#1}{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}{%
+            \upperletter\nextchar%
+            \let\nextchar\relax%
+        }{%
+            \relax%
+        }%
+    \fi
+    \nextchar%
+}
+
+\def\@upperletter{%
+    \@ifnextchar\par%
+    {\expandafter\@upperletter\@gobble}%
+    {\@tempupperletter}}
+
+\newcommand{\upperletter}[1]{
+    \vspace{\parskip}%
+    \def\@temp{%
+        \noindent\begingroup\fontsize{\fontsizeupperletter}{\fontsizeupperletter}\selectfont\uppercase\expandafter{#1}\endgroup%
+    }
+    \settoheight{\heighttext}{\@temp}
+    \settowidth{\widthtext}{\@temp\relax}
+    \settodepth{\depthtext}{\@temp}
+    \setlength{\totaltext}{\dimexpr \heighttext+\depthtext+\baselineskip}
+    
+    {\@temp}
+
+    \vspace{-\totaltext}%
+    \noindent%
+    \hangindent=\dimexpr\widthtext+0.5pc\relax
+    \hangafter=-2\relax%
+    %\hangafter=-\numexpr(\totaltext/\baselineskip)\relax%
+}
+%% UPPERLETTER ENVIRONMENT END
+
+% line with thickness control
+\newcommand{\Hline}{%
+\noalign {\ifnum0 =`}\fi \hrule \@height 1.5pt \futurelet \reserved@a \@xhline}
+
+
+% split text
+\newcommand{\mstyle@splittext}[2][,]{%
+\begingroup%
+    \def\start{}%
+    \def\itemseparate{#1}%
+    \expandafter\mstyle@splitaux#2\end%
+\endgroup
+}
+\def\mstyle@splitaux#1\end{%
+    \mstyle@@split \start#1,\end,%
+}
+\def\mstyle@@split #1,{%
+    \ifx\end#1%
+        \unskip\char46% char 46 = .
+    \else%
+        \ifx\start#1%
+        \else%
+            \unskip\itemseparate\space\ignorespaces#1%
+        \fi%
+        \expandafter\mstyle@@split%
+    \fi%
+}

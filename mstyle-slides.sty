@@ -1,0 +1,56 @@
+\ProvidesPackage{mstyle-slides}[2026/03/12 v0.1 (guilhermeivo)]
+\typeout{Document Style Slides: Layout definitions for package mstyle-slides}
+
+\RequirePackage{mstyle-core}
+\RequirePackage{amsmath}
+
+\definecolor{myblue}{RGB}{25,60,120}
+\definecolor{mygreen}{RGB}{0,70,40}
+
+\usetheme{default}
+
+\setbeamerfont{title}{series=\bfseries}
+\setbeamercolor{title}{fg=mygreen}
+
+\setbeamercolor{background canvas}{bg=gray!5}
+
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{math text}{fg=myblue}
+
+\setbeamertemplate{footline}{
+    \vspace{2mm}
+    \phantom{\insertframenumber}
+    \hfill
+    {\color{black!35}\insertshorttitle}
+    \hfill
+    \insertframenumber
+    \hspace{2mm}
+    \vspace{2mm}
+}
+\setbeamertemplate{navigation symbols}{}
+
+\addtobeamertemplate{frame begin}{\vspace{0.7cm}}{}
+\setbeamersize{text margin left=0.7cm, text margin right=0.7cm}
+
+\setbeamertemplate{frametitle}{
+    \vspace{0.4cm}
+    \color{mygreen}
+    \textbf{\insertframetitle}
+    \par
+}
+\setbeamercolor{frametitle continuation}{fg=mygreen}
+
+\usefonttheme{professionalfonts}
+\usefonttheme[onlymath]{serif}
+
+\setbeamertemplate{itemize item}{\color{myblue}\large\textbullet}
+\setbeamertemplate{itemize subitem}{\color{myblue}\small\textbullet}
+\setbeamertemplate{itemize subsubitem}{\color{myblue}\tiny\textbullet}
+
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamercolor{bibliography entry author}{fg=myblue}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography item}{fg=myblue}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}

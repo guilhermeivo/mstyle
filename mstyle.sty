@@ -1,26 +1,24 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{m_style}[2025/01/03 v0.1 (guilhermeivo)]
-\typeout{Document Style: Layout definitions for package m_style}
+\ProvidesPackage{mstyle}[2025/01/03 v0.1 (guilhermeivo)]
+\typeout{Document Style: Layout definitions for package mstyle}
 
 % \RequirePackage{newtx} % pattern font in projects
 
-\@ifpackageloaded{hyperref}{\relax}
-{
-\RequirePackage{hyperref}
-}
-
-\RequirePackage[left=2.5cm, right=2.0cm, top=2.5cm, bottom=2.0cm]{geometry}
-
-\author{guilhermeivo}
+\RequirePackage{mstyle-core}
+\RequirePackage{microtype}
 
 \linespread{1.25} 
 \setlength{\parskip}{5pt}
 
-\newif\if@customsection
-\newif\if@custommaketitle
-\newif\if@customlistings
-\DeclareOption{section}{\@customsectiontrue}
-\DeclareOption{maketitle}{\@custommaketitletrue}
+\newif\ifmstyle@customsection
+\newif\ifmstyle@custommaketitle
+\newif\ifmstyle@customlistings
+\newif\ifmstyle@margin
+\mstyle@margintrue
+
+\DeclareOption{section}{\mstyle@customsectiontrue}
+\DeclareOption{maketitle}{\mstyle@custommaketitletrue}
+\DeclareOption{nomargin}{\mstyle@marginfalse}
 \ProcessOptions\relax
 
 \if@twocolumn%
@@ -35,79 +33,17 @@
     }
 \fi
 
-% configuration math names
-\@ifpackageloaded{amsmath}{
-    \DeclareMathOperator{\arctg}{arctg}
-    \renewcommand{\arctan}{\arctg}
-
-    \DeclareMathOperator{\sen}{sen}
-    \renewcommand{\sin}{\sen}
-}{\relax}
-
-%% UPPERLETTER ENVIRONMENT BEGIN
-\newlength{\fontsizeupperletter}
-
-%\setlength{\fontsizeupperletter}{5.27em}
-% the default font has a size limit
-\setlength{\fontsizeupperletter}{3.2em}
-
-\newlength{\heighttext}
-\newlength{\widthtext}
-\newlength{\depthtext}
-\newlength{\totaltext}
-\newlength{\numberoflines}
-
-\newcommand\inlist[2]{%
-    \begingroup%
-    \edef\x{\endgroup\noexpand\in@{,#1,}{,#2,}}\x%
-    \ifin@%
-        \expandafter\@firstoftwo%
-    \else%
-        \expandafter\@secondoftwo%
-    \fi}
-
-\def\@tempupperletter#1{%
-    \let\nextchar#1%
-    \ifx#1*
-        \let\nextchar\relax
-    \else
-        \inlist{\noexpand#1}{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}{%
-            \upperletter\nextchar%
-            \let\nextchar\relax%
-        }{%
-            \relax%
-        }%
-    \fi
-    \nextchar%
-}
-
-\def\@upperletter{%
-    \@ifnextchar\par%
-    {\expandafter\@upperletter\@gobble}%
-    {\@tempupperletter}}
-
-\newcommand{\upperletter}[1]{
-    \vspace{\parskip}%
-    \def\@temp{%
-        \noindent\begingroup\fontsize{\fontsizeupperletter}{\fontsizeupperletter}\selectfont\uppercase\expandafter{#1}\endgroup%
-    }
-    \settoheight{\heighttext}{\@temp}
-    \settowidth{\widthtext}{\@temp\relax}
-    \settodepth{\depthtext}{\@temp}
-    \setlength{\totaltext}{\dimexpr \heighttext+\depthtext+\baselineskip}
-    
-    {\@temp}
-
-    \vspace{-\totaltext}%
-    \noindent%
-    \hangindent=\dimexpr\widthtext+0.5pc\relax
-    \hangafter=-2\relax%
-    %\hangafter=-\numexpr(\totaltext/\baselineskip)\relax%
-}
-%% UPPERLETTER ENVIRONMENT END
-
 %% CUSTOM SECTION ENVIRONMENT BEGIN
-\if@customsection
+\ifmstyle@customsection
+
+\ifmstyle@margin
+    \RequirePackage[
+        left=2.5cm, 
+        right=2.0cm, 
+        top=2.5cm, 
+        bottom=2.0cm
+    ]{geometry}
+\fi
 
 \let\my@ssect\@ssect
 
@@ -164,10 +100,10 @@
 \newcommand*{\accessin}[1]{\gdef\@accessin{#1}}
 \newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
 
-\if@custommaketitle
+\ifmstyle@custommaketitle
 
 \renewcommand{\@maketitle}{%
-    \newpage
+    \cleardoublepage
     \null
     \vskip 2em%
     \begin{center}%
@@ -199,9 +135,11 @@
 \let\mymaketitle\maketitle
 
 \renewcommand{\maketitle}{
+    \newgeometry{left=2.5cm, right=2.0cm, top=2.5cm, bottom=2.0cm}
     \renewcommand{\thepage}{Cover}%
     \mymaketitle%
     \thispagestyle{empty}%
+    \restoregeometry
 }
 
 \fi
@@ -209,8 +147,8 @@
 
 %% CUSTOM HEADINGS ENVIRONMENT BEGIN
 \def\ps@mainheadings{%
-    \def\@oddhead{\hspace*{-1cm}\reset@font\footnotesize{\slshape{\thetitle}}\hfill\thepage\hspace*{-1cm}}%
-    \def\@evenhead{\hspace*{-1cm}\reset@font\footnotesize\thepage\hfill\hspace*{-1cm}}%
+    \def\@oddhead{\hspace*{-1cm}\reset@font\footnotesize{\slshape{\thetitle}}\hfill\thepage\hspace*{-3cm}}%
+    \def\@evenhead{\hspace*{-3cm}\reset@font\footnotesize\thepage\hfill\hspace*{-1cm}}%
     \let\@oddfoot\@empty
     \let\@evenfoot\@empty
 }
@@ -248,10 +186,6 @@
 \def\l@graphic{\@dottedtocline{1}{1.5em}{2.3em}}
 %% END LIST OF GRAPHICS
 
-% line with thickness control
-\newcommand{\Hline}{%
-\noalign {\ifnum0 =`}\fi \hrule \@height 1.5pt \futurelet \reserved@a \@xhline}
-
 \newenvironment{appendixenv}[1][\@empty]{%
     \pagestyle{plain}
     \begingroup
@@ -282,29 +216,6 @@
 }{%
     \endgroup
     \newpage
-}
-
-% split text
-\newcommand{\splittext}[2][,]{%
-\begingroup%
-    \def\start{}%
-    \def\itemseparate{#1}%
-    \expandafter\splitaux#2\end%
-\endgroup
-}
-\def\splitaux#1\end{%
-    \@split \start#1,\end,%
-}
-\def\@split #1,{%
-    \ifx\end#1%
-        \unskip\char46% char 46 = .
-    \else%
-        \ifx\start#1%
-        \else%
-            \unskip\itemseparate\space\ignorespaces#1%
-        \fi%
-        \expandafter\@split%
-    \fi%
 }
 
 \pagestyle{mainheadings}

@@ -1,0 +1,59 @@
+\documentclass{beamer}
+
+\usepackage{mstyle-slides}
+
+\usepackage[brazil]{babel}
+
+\title{Arquivo de Exemplo para o Estilo mstyle-slides.sty}
+\author{guilhermeivo}
+\date{\today}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+\begin{frame}
+\frametitle{Fórmula de Machin}
+
+\begin{itemize}
+\item A fórmula de Machin foi descoberta por John Machin (1680--1751).
+\item Foi usada para calcular $\pi$ com 100 casas decimais.
+\item Posteriormente, William Shanks (1812--1882) utilizou essa fórmula para calcular $\pi$ com 707 casas decimais.
+\end{itemize}
+
+\medskip
+
+\begin{equation}
+\frac{\pi}{4}=4\arctan\frac{1}{5}-\arctan\frac{1}{239}
+\end{equation}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Série da Arcotangente}
+
+\begin{itemize}
+\item A função $\arctan(x)$ possui uma expansão em \textbf{série de potências}.
+\item Essa série converge para $|x| < 1$.
+\end{itemize}
+
+\begin{equation}
+\arctan x=\sum\limits_{n=0}^{\infty}(-1)^{n}\frac{x^{2n+1}}{2n+1},\quad\lvert x\rvert<1
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks,plain]
+\frametitle{Referências}
+
+\nocite{pi-source-book}
+\nocite{special-issue}
+\nocite{aocc-user-guide}
+\nocite{ieee}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{frame}
+
+\end{document}

@@ -1,4 +1,4 @@
-# m_style
+# mstyle
 
 ## Run example
 ```
