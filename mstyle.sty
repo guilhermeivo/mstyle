@@ -12,12 +12,15 @@
 
 \newif\ifmstyle@customsection
 \newif\ifmstyle@custommaketitle
+\newif\ifmstyle@customheadings
+\mstyle@customheadingstrue
 \newif\ifmstyle@customlistings
 \newif\ifmstyle@margin
 \mstyle@margintrue
 
 \DeclareOption{section}{\mstyle@customsectiontrue}
 \DeclareOption{maketitle}{\mstyle@custommaketitletrue}
+\DeclareOption{nocustomheadings}{\mstyle@customheadingsfalse}
 \DeclareOption{nomargin}{\mstyle@marginfalse}
 \ProcessOptions\relax
 
@@ -146,12 +149,18 @@
 %% CUSTOM MAKETITLE ENVIRONMENT END
 
 %% CUSTOM HEADINGS ENVIRONMENT BEGIN
+\ifmstyle@customheadings
+
 \def\ps@mainheadings{%
     \def\@oddhead{\hspace*{-1cm}\reset@font\footnotesize{\slshape{\thetitle}}\hfill\thepage\hspace*{-3cm}}%
     \def\@evenhead{\hspace*{-3cm}\reset@font\footnotesize\thepage\hfill\hspace*{-1cm}}%
     \let\@oddfoot\@empty
     \let\@evenfoot\@empty
 }
+
+\pagestyle{mainheadings}
+
+\fi
 %% CUSTOM HEADINGS ENVIRONMENT END
 
 %% BEGIN LIST OF GRAPHICS
@@ -217,5 +226,3 @@
     \endgroup
     \newpage
 }
-
-\pagestyle{mainheadings}
